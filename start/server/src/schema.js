@@ -35,9 +35,18 @@ const typeDefs = gql`
   # 定义数据图所要执行的查询
   # ID 为标量类型
   type Query {
-    launches: [Launch]!
+    launches(
+      pageSize: Int,
+      after: String
+    ): LaunchConnection!
     launch(id: ID!): Launch
     me: User
+  }
+
+  type LaunchConnection {
+    cursor: String!
+    hasMore: Boolean!
+    launches: [Launch]!
   }
 
   type Mutation {
